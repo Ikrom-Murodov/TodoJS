@@ -1,6 +1,6 @@
 <template>
   <svg
-    class="base-svg"
+    class="svg base-svg"
     version="1.1"
     id="Capa_1"
     xmlns="http://www.w3.org/2000/svg"
@@ -58,4 +58,8 @@ export default {};
 
 .svg_active
   fill: #33B5E5
+
+@media screen and (max-width: 500px)
+  .base-svg
+    width: 3rem
 </style>

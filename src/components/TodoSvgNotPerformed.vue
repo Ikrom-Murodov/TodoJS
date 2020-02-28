@@ -50,4 +50,8 @@ export default {};
 
 .svg_active
   fill: #33B5E5
+
+@media screen and (max-width: 500px)
+  .base-svg
+    width: 3rem
 </style>

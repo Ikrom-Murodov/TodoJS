@@ -25,6 +25,7 @@ $todo-title-font-size: 3rem
     border: .1rem solid $todo-create-task-border-color
     height: auto
     border-radius: .5rem
+    margin-top: 1rem
 
   &__wrapper-title
     background-color: $todo-wrapper-title-background-color

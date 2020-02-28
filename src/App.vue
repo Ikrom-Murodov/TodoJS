@@ -9,6 +9,8 @@
         </todo-create-tasks>
 
         <todo-filter-tasks></todo-filter-tasks>
+
+        <todo-tasks></todo-tasks>
       </div>
     </div>
   </div>
@@ -18,6 +20,7 @@
 import TodoCreateTasks from "./components/TodoCreateTasks";
 import TodoForm from "./components/TodoForm";
 import TodoFilterTasks from "./components/TodoFilterTasks";
+import TodoTasks from "./components/TodoTasks";
 
 export default {
   data() {
@@ -26,7 +29,8 @@ export default {
   components: {
     "todo-create-tasks": TodoCreateTasks,
     "todo-form": TodoForm,
-    "todo-filter-tasks": TodoFilterTasks
+    "todo-filter-tasks": TodoFilterTasks,
+    "todo-tasks": TodoTasks
   },
   computed: {},
   methods: {},

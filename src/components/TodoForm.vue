@@ -95,4 +95,14 @@ $form-button-color: #33B5E5
     &:hover
       color: white
       background-color: #33B5E5
+
+@media screen and (max-width: 500px)
+  .form
+
+    &__button
+      font-size: 1.4rem
+      width: auto
+
+    &__label-title, &__label-description
+      font-size: 1.4rem
 </style>
