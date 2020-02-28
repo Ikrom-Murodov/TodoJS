@@ -23,16 +23,20 @@ import TodoFilterTasks from "./components/TodoFilterTasks";
 import TodoTasks from "./components/TodoTasks";
 
 export default {
-  data() {
-    return {};
-  },
   components: {
     "todo-create-tasks": TodoCreateTasks,
     "todo-form": TodoForm,
     "todo-filter-tasks": TodoFilterTasks,
     "todo-tasks": TodoTasks
   },
-  computed: {},
+  data() {
+    return {};
+  },
+  computed: {
+    getTasks() {
+      return this.$store.getters.returnTasks;
+    }
+  },
   methods: {},
   watch: {}
 };
