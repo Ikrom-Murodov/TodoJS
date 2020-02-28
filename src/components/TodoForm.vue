@@ -1,33 +1,85 @@
 <template>
-  <form class="form todo__form" action="#">
+  <form @submit.prevent class="form todo__form" action="#">
     <div class="form__wrapper-input-title">
-      <label class="form__label-title" for="form-input-title">Загаловок</label>
-      <input id="form-input-title" type="text" class="form__input-title" />
+      <label
+        :class="{ form__label_error: errorClass('title') }"
+        class="form__label-title"
+        for="form-input-title"
+        >{{ getErrorText("title", "Загаловок", "5") }}</label
+      >
+      <input
+        v-model.trim="title"
+        @blur="$v.title.$touch()"
+        id="form-input-title"
+        type="text"
+        class="form__input-title"
+        :class="{ form__input_error: errorClass('title') }"
+      />
     </div>
-
     <div class="form__wrapper-input-description">
-      <label class="form__label-description" for="form-input-description">
-        Описание
-      </label>
+      <label
+        :class="{ form__label_error: errorClass('description') }"
+        class="form__label-description"
+        for="form-input-description"
+        >{{ getErrorText("description", "Описание", "10") }}</label
+      >
 
       <textarea
+        v-model="description"
+        @blur="$v.description.$touch()"
+        :class="{ form__input_error: errorClass('description') }"
         id="form-input-description"
         class="form__input-description"
       ></textarea>
     </div>
 
     <div class="form__wrapper-button">
-      <button class="form__button">Создать задачу</button>
+      <button
+        :disabled="this.$v.$invalid"
+        @click="saveData"
+        type="submit"
+        class="form__button"
+      >
+        Создать задачу
+      </button>
     </div>
   </form>
 </template>
 
 <script>
+import { required, minLength } from "vuelidate/lib/validators";
+
 export default {
-  data() {
-    return {};
+  methods: {
+    errorClass(type) {
+      return this.$v[type].$dirty && this.$v[type].$error;
+    },
+    getErrorText(type, title, value) {
+      return this.$v[type].minLength
+        ? `${title}`
+        : `Меньше чем ${value} символов вести нельзя`;
+    },
+    saveData() {
+      this.title = this.description = "";
+      this.$v.$reset();
+    }
   },
-  methods: {}
+  data() {
+    return {
+      title: "",
+      description: ""
+    };
+  },
+  validations: {
+    title: {
+      required,
+      minLength: minLength(5)
+    },
+    description: {
+      required,
+      minLength: minLength(10)
+    }
+  }
 };
 </script>
 
@@ -56,6 +108,9 @@ $form-button-color: #33B5E5
     color: $form-label-color
     cursor: pointer
 
+  &__label_error
+    color: red
+
   &__input-title, &__input-description
     width: 100%
     border: .1rem solid $form-input-border-color
@@ -70,6 +125,14 @@ $form-button-color: #33B5E5
     &:focus
       box-shadow: 0 0 .1rem .2rem rgb(191,222,255);
       border-color: white
+
+  &__input_error
+    border: .1rem solid red
+    color: red
+
+    &:focus
+      box-shadow: 0 0 .1rem .2rem rgb(255,0,0);
+
 
   &__input-description
     max-width: 100%
