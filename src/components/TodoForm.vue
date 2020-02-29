@@ -48,6 +48,7 @@
 
 <script>
 import { required, minLength } from "vuelidate/lib/validators";
+import { id } from "../services/utils/id";
 
 export default {
   methods: {
@@ -60,6 +61,15 @@ export default {
         : `Меньше чем ${value} символов вести нельзя`;
     },
     saveData() {
+      const data = {
+        title: this.title,
+        description: this.description,
+        done: false,
+        id: id(30)
+      };
+
+      this.$store.commit("addTask", data);
+
       this.title = this.description = "";
       this.$v.$reset();
     }

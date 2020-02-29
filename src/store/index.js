@@ -13,7 +13,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    addTask() {},
+    addTask(state, data) {
+      this.state.tasks.push(data);
+    },
     removeTask() {},
     changeTask() {}
   },

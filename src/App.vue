@@ -10,7 +10,11 @@
 
         <todo-filter-tasks></todo-filter-tasks>
 
-        <todo-tasks></todo-tasks>
+        <todo-tasks
+          v-for="items in getTasks"
+          :Data="items"
+          :key="items.id"
+        ></todo-tasks>
       </div>
     </div>
   </div>

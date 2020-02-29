@@ -47,8 +47,8 @@ export default {
   },
   data() {
     return {
-      title: "Title",
-      description: "description",
+      title: this.Data.title,
+      description: this.Data.description,
       buttonTitle: "Изменить задачу",
       show: true
     };
@@ -57,6 +57,12 @@ export default {
     editTask() {
       this.show = !this.show;
       this.buttonTitle = this.show ? "Изменить задачу" : "Сохранить задачу";
+    }
+  },
+  props: {
+    Data: {
+      type: Object,
+      required: true
     }
   }
 };
