@@ -30,7 +30,11 @@
           <button @click="editTask" class="todo-tasks__button-edit-task">
             {{ buttonTitle }}
           </button>
-          <button v-show="show" class="todo-tasks__button-delete-task">
+          <button
+            v-show="show"
+            @click="deleteTasks"
+            class="todo-tasks__button-delete-task"
+          >
             Удалить задачу
           </button>
         </div>
@@ -57,6 +61,9 @@ export default {
     editTask() {
       this.show = !this.show;
       this.buttonTitle = this.show ? "Изменить задачу" : "Сохранить задачу";
+    },
+    deleteTasks() {
+      this.$store.commit("removeTask", this.Data.id);
     }
   },
   props: {

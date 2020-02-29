@@ -16,7 +16,10 @@ export default new Vuex.Store({
     addTask(state, data) {
       this.state.tasks.push(data);
     },
-    removeTask() {},
+    removeTask(state, id) {
+      const index = state.tasks.findIndex(items => items.id === id);
+      state.tasks.splice(index, 1);
+    },
     changeTask() {}
   },
   actions: {}
