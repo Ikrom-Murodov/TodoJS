@@ -3,7 +3,23 @@
     <div class="todo-tasks__content">
       <div class="todo-tasks__content-task">
         <div v-show="show" class="todo-tasks__wrapper-title">
-          <h1 class="todo-tasks__title">{{ title }}</h1>
+          <h1
+            :class="{ 'todo-tasks__performed-title': done }"
+            class="todo-tasks__title"
+          >
+            {{ title }}
+          </h1>
+        </div>
+
+        <div v-show="show" class="todo-tasks__wrapper-description">
+          <button @click="performTask" class="todo-tasks__button-performed">
+            <todo-svg-tasks-performed :Done="done"></todo-svg-tasks-performed>
+          </button>
+          <span
+            :class="{ 'todo-tasks__performed-description': done }"
+            class="todo-tasks__description"
+            >{{ description }}</span
+          >
         </div>
 
         <div v-show="!show" class="todo-tasks__edit">
@@ -17,13 +33,6 @@
             class="todo-tasks__edit-description"
             type="text"
           />
-        </div>
-
-        <div v-show="show" class="todo-tasks__wrapper-description">
-          <button class="todo-tasks__button-performed">
-            <todo-svg-tasks-performed></todo-svg-tasks-performed>
-          </button>
-          <span class="todo-tasks__description">{{ description }}</span>
         </div>
 
         <div class="todo-tasks__wrapper-buttons">
@@ -53,6 +62,7 @@ export default {
     return {
       title: this.Data.title,
       description: this.Data.description,
+      done: this.Data.done,
       buttonTitle: "Изменить задачу",
       show: true
     };
@@ -61,9 +71,28 @@ export default {
     editTask() {
       this.show = !this.show;
       this.buttonTitle = this.show ? "Изменить задачу" : "Сохранить задачу";
+
+      if (this.show) this.saveTaskChange();
     },
+
     deleteTasks() {
       this.$store.commit("removeTask", this.Data.id);
+    },
+
+    performTask() {
+      this.done = !this.done;
+      this.saveTaskChange();
+    },
+
+    saveTaskChange() {
+      const data = {
+        title: this.title,
+        description: this.description,
+        done: this.done,
+        id: this.Data.id
+      };
+
+      this.$store.commit("changeTask", data);
     }
   },
   props: {
@@ -92,6 +121,7 @@ export default {
   &__title
     color: #6C757D
     font-size: 2.5rem
+    transition: color .4s
 
   &__description
     padding: 0
@@ -100,6 +130,8 @@ export default {
     line-height: 1.5
     letter-spacing: .1rem
     color: #747373
+    transition: color .4s
+
 
   &__button-edit-task, &__button-delete-task
     font-size: 1.8rem

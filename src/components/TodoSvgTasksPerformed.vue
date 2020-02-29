@@ -2,6 +2,7 @@
   <div>
     <svg
       class="svg-base"
+      :class="{ svg_active: Done }"
       viewBox="0 -21 512.016 512"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -16,7 +17,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    Done: {
+      type: Boolean,
+      required: true
+    }
+  }
+};
 </script>
 
 <style lang="sass" scoped>
@@ -27,6 +35,6 @@ export default {};
   cursor: pointer
   transition: fill .4s
 
-.svg-active
+.svg_active
   fill: #33B5E5
 </style>

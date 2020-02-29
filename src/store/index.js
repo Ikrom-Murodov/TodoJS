@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     tasks: []
   },
+
   getters: {
     returnTasks(state) {
       return state.tasks;
@@ -16,11 +17,16 @@ export default new Vuex.Store({
     addTask(state, data) {
       state.tasks.push(data);
     },
+
     removeTask(state, id) {
       const index = state.tasks.findIndex(items => items.id === id);
       state.tasks.splice(index, 1);
     },
-    changeTask() {},
+
+    changeTask(state, data) {
+      const index = state.tasks.findIndex(items => items.id === data.id);
+      state.tasks.splice(index, 1, data);
+    },
 
     setTasks(state, tasks) {
       state.tasks = tasks;
