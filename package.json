@@ -1,7 +1,15 @@
 {
   "name": "todo",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "description": "Приложение для создание задач",
+  "author": {
+    "name": "Ikrom Murodov",
+    "email": "ikrommurodov2001@gmail.com",
+    "url": "https://github.com/Ikrom-Murodov"
+  },
+  "homepage": "https://github.com/Ikrom-Murodov",
+  "license": "ISC",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
