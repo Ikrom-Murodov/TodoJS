@@ -14,13 +14,27 @@ export default new Vuex.Store({
   },
   mutations: {
     addTask(state, data) {
-      this.state.tasks.push(data);
+      state.tasks.push(data);
     },
     removeTask(state, id) {
       const index = state.tasks.findIndex(items => items.id === id);
       state.tasks.splice(index, 1);
     },
-    changeTask() {}
+    changeTask() {},
+
+    setTasks(state, tasks) {
+      state.tasks = tasks;
+    }
   },
-  actions: {}
+  actions: {
+    saveDataToLs() {
+      const data = JSON.stringify(this.getters.returnTasks);
+      localStorage.setItem("tasks", data);
+    },
+
+    getDataFromLs(context) {
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      context.commit("setTasks", tasks);
+    }
+  }
 });

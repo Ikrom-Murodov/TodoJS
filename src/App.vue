@@ -42,7 +42,17 @@ export default {
     }
   },
   methods: {},
-  watch: {}
+  watch: {
+    getTasks: {
+      handler() {
+        this.$store.dispatch("saveDataToLs");
+      },
+      deep: true
+    }
+  },
+  created() {
+    this.$store.dispatch("getDataFromLs");
+  }
 };
 </script>
 
