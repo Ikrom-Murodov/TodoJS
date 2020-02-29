@@ -20,6 +20,8 @@ export default {
 .base-svg
   width: 4rem
   fill: #6C757D
+  transition: fill .4s
+
 
 .svg_active
   fill: #33B5E5

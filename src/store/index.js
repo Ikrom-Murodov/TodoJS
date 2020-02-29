@@ -5,12 +5,22 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    tasks: []
+    tasks: [],
+    mode: "returnTasks"
   },
 
   getters: {
     returnTasks(state) {
       return state.tasks;
+    },
+    returnCompletedTasks(state) {
+      const tasks = state.tasks.filter(items => items.done === true);
+      return tasks;
+    },
+
+    returnFailedTasks(state) {
+      const tasks = state.tasks.filter(items => items.done === false);
+      return tasks;
     }
   },
   mutations: {
@@ -30,6 +40,10 @@ export default new Vuex.Store({
 
     setTasks(state, tasks) {
       state.tasks = tasks;
+    },
+
+    editMode(state, value) {
+      state.mode = value;
     }
   },
   actions: {

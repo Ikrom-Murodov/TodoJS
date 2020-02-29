@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     getTasks() {
-      return this.$store.getters.returnTasks;
+      return this.$store.getters[this.$store.state.mode];
     }
   },
   methods: {},

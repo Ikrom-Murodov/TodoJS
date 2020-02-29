@@ -1,24 +1,56 @@
 <template>
   <div class="todo-filter">
     <div class="todo-filter__content">
-      <div class="todo-filter__wrapper-button">
-        <button title="Все задачи" class="todo-filter__button-list">
-          <todo-svg-list></todo-svg-list>
-        </button>
-      </div>
-
-      <div class="todo-filter__wrapper-button">
-        <button title="Выполненые задачи" class="todo-filter__button-performed">
-          <todo-svg-performed></todo-svg-performed>
-        </button>
-      </div>
-
-      <div class="todo-filter__wrapper-button">
+      <div
+        :class="{
+          'todo-filter__wrapper-button_active': classActive == 'returnTasks'
+        }"
+        class="todo-filter__wrapper-button"
+      >
         <button
+          @click="allTasks"
+          title="Все задачи"
+          class="todo-filter__button-list"
+        >
+          <todo-svg-list
+            :class="{ svg_active: classActive == 'returnTasks' }"
+          ></todo-svg-list>
+        </button>
+      </div>
+
+      <div
+        :class="{
+          'todo-filter__wrapper-button_active':
+            classActive == 'returnCompletedTasks'
+        }"
+        class="todo-filter__wrapper-button"
+      >
+        <button
+          @click="completedTasks"
+          title="Выполненые задачи"
+          class="todo-filter__button-performed"
+        >
+          <todo-svg-performed
+            :class="{ svg_active: classActive == 'returnCompletedTasks' }"
+          ></todo-svg-performed>
+        </button>
+      </div>
+
+      <div
+        :class="{
+          'todo-filter__wrapper-button_active':
+            classActive == 'returnFailedTasks'
+        }"
+        class="todo-filter__wrapper-button"
+      >
+        <button
+          @click="failedTasks"
           title="Не выполненые задачи"
           class="todo-filter__button-no-performed"
         >
-          <todo-svg-not-performed></todo-svg-not-performed>
+          <todo-svg-not-performed
+            :class="{ svg_active: classActive == 'returnFailedTasks' }"
+          ></todo-svg-not-performed>
         </button>
       </div>
     </div>
@@ -35,6 +67,22 @@ export default {
     "todo-svg-list": TodoSvgList,
     "todo-svg-performed": TodoSvgPerformed,
     "todo-svg-not-performed": TodoSvgNotPerformed
+  },
+  methods: {
+    allTasks() {
+      this.$store.commit("editMode", "returnTasks");
+    },
+    completedTasks() {
+      this.$store.commit("editMode", "returnCompletedTasks");
+    },
+    failedTasks() {
+      this.$store.commit("editMode", "returnFailedTasks");
+    }
+  },
+  computed: {
+    classActive() {
+      return this.$store.state.mode;
+    }
   }
 };
 </script>
