@@ -11,7 +11,7 @@
         <todo-filter-tasks></todo-filter-tasks>
 
         <todo-tasks
-          v-for="items in getTasks"
+          v-for="items in returnSortedTasks"
           :Data="items"
           :key="items.id"
         ></todo-tasks>
@@ -37,14 +37,18 @@ export default {
 
   computed: {
     ...mapGetters("main", [
-      "returnMode",
-      "returnTasks",
-      "returnCompletedTasks",
-      "returnFailedTasks"
+      "getModeTasks",
+      "getAllTasks",
+      "getCompletedTasks",
+      "getTasksNotCompleted"
     ]),
 
-    getTasks() {
-      return this[this.returnMode];
+    returnSortedTasks() {
+      return this[this.getModeTasks];
+    },
+
+    returnAllTasks() {
+      return this.getAllTasks;
     }
   },
 
@@ -53,7 +57,7 @@ export default {
   },
 
   watch: {
-    getTasks: {
+    returnAllTasks: {
       handler() {
         this.saveDataToLs();
       },

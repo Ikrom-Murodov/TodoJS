@@ -53,7 +53,7 @@ import { mapMutations } from "vuex";
 
 export default {
   methods: {
-    ...mapMutations("main", ["addTask"]),
+    ...mapMutations("main", ["addNewTasks"]),
 
     errorClass(type) {
       return this.$v[type].$dirty && this.$v[type].$error;
@@ -73,7 +73,7 @@ export default {
         id: id(30)
       };
 
-      this.addTask(data);
+      this.addNewTasks(data);
 
       this.title = this.description = "";
       this.$v.$reset();

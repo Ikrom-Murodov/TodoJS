@@ -1,17 +1,17 @@
-export function returnTasks(state) {
+export function getAllTasks(state) {
   return state.tasks;
 }
 
-export function returnMode(state) {
-  return state.mode;
-}
-
-export function returnCompletedTasks(state) {
+export function getCompletedTasks(state) {
   const tasks = state.tasks.filter(items => items.done === true);
   return tasks;
 }
 
-export function returnFailedTasks(state) {
+export function getTasksNotCompleted(state) {
   const tasks = state.tasks.filter(items => items.done === false);
   return tasks;
+}
+
+export function getModeTasks(state) {
+  return state.tasksMode;
 }

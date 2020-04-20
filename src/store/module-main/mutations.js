@@ -1,4 +1,4 @@
-export function addTask(state, data) {
+export function addNewTasks(state, data) {
   state.tasks.push(data);
 }
 
@@ -12,10 +12,10 @@ export function changeTask(state, data) {
   state.tasks.splice(index, 1, data);
 }
 
-export function setTasks(state, tasks) {
+export function setNewTasks(state, tasks) {
   state.tasks = tasks;
 }
 
-export function editMode(state, value) {
-  state.mode = value;
+export function editTasksMode(state, value) {
+  state.tasksMode = value;
 }

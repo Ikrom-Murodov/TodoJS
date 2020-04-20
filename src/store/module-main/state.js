@@ -1,4 +1,4 @@
 export default {
   tasks: [],
-  mode: "returnTasks"
+  tasksMode: "getAllTasks"
 };

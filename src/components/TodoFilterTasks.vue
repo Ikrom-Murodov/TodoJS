@@ -3,7 +3,7 @@
     <div class="todo-filter__content">
       <div
         :class="{
-          'todo-filter__wrapper-button_active': classActive == 'returnTasks'
+          'todo-filter__wrapper-button_active': classActive == 'getAllTasks'
         }"
         class="todo-filter__wrapper-button"
       >
@@ -13,7 +13,7 @@
           class="todo-filter__button-list"
         >
           <todo-svg-list
-            :class="{ svg_active: classActive == 'returnTasks' }"
+            :class="{ svg_active: classActive == 'getAllTasks' }"
           ></todo-svg-list>
         </button>
       </div>
@@ -21,7 +21,7 @@
       <div
         :class="{
           'todo-filter__wrapper-button_active':
-            classActive == 'returnCompletedTasks'
+            classActive == 'getCompletedTasks'
         }"
         class="todo-filter__wrapper-button"
       >
@@ -31,7 +31,7 @@
           class="todo-filter__button-performed"
         >
           <todo-svg-performed
-            :class="{ svg_active: classActive == 'returnCompletedTasks' }"
+            :class="{ svg_active: classActive == 'getCompletedTasks' }"
           ></todo-svg-performed>
         </button>
       </div>
@@ -39,17 +39,17 @@
       <div
         :class="{
           'todo-filter__wrapper-button_active':
-            classActive == 'returnFailedTasks'
+            classActive == 'getTasksNotCompleted'
         }"
         class="todo-filter__wrapper-button"
       >
         <button
-          @click="failedTasks"
+          @click="tasksNotCompleted"
           title="Не выполненные задачи"
           class="todo-filter__button-no-performed"
         >
           <todo-svg-not-performed
-            :class="{ svg_active: classActive == 'returnFailedTasks' }"
+            :class="{ svg_active: classActive == 'getTasksNotCompleted' }"
           ></todo-svg-not-performed>
         </button>
       </div>
@@ -61,7 +61,7 @@
 import TodoSvgList from "./TodoSvgList";
 import TodoSvgPerformed from "./TodoSvgPerformed";
 import TodoSvgNotPerformed from "./TodoSvgNotPerformed";
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -69,24 +69,28 @@ export default {
     "todo-svg-performed": TodoSvgPerformed,
     "todo-svg-not-performed": TodoSvgNotPerformed
   },
+
   methods: {
-    ...mapMutations("main", ["editMode"]),
+    ...mapMutations("main", ["editTasksMode"]),
 
     allTasks() {
-      this.editMode("returnTasks");
+      this.editTasksMode("getAllTasks");
     },
 
     completedTasks() {
-      this.editMode("returnCompletedTasks");
+      this.editTasksMode("getCompletedTasks");
     },
 
-    failedTasks() {
-      this.editMode("returnFailedTasks");
+    tasksNotCompleted() {
+      this.editTasksMode("getTasksNotCompleted");
     }
   },
+
   computed: {
+    ...mapGetters("main", ["getModeTasks"]),
+
     classActive() {
-      return this.$store.state.main.mode;
+      return this.getModeTasks;
     }
   }
 };
