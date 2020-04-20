@@ -5,7 +5,7 @@
         :class="{ form__label_error: errorClass('title') }"
         class="form__label-title"
         for="form-input-title"
-        >{{ getErrorText("title", "Загаловок", "5") }}</label
+        >{{ getErrorText("title", "Заголовок", "5") }}</label
       >
       <input
         v-model.trim="title"
@@ -49,17 +49,22 @@
 <script>
 import { required, minLength } from "vuelidate/lib/validators";
 import { id } from "../services/utils/id";
+import { mapMutations } from "vuex";
 
 export default {
   methods: {
+    ...mapMutations("main", ["addTask"]),
+
     errorClass(type) {
       return this.$v[type].$dirty && this.$v[type].$error;
     },
+
     getErrorText(type, title, value) {
       return this.$v[type].minLength
         ? `${title}`
         : `Меньше чем ${value} символов вести нельзя`;
     },
+
     saveData() {
       const data = {
         title: this.title,
@@ -68,23 +73,26 @@ export default {
         id: id(30)
       };
 
-      this.$store.commit("addTask", data);
+      this.addTask(data);
 
       this.title = this.description = "";
       this.$v.$reset();
     }
   },
+
   data() {
     return {
       title: "",
       description: ""
     };
   },
+
   validations: {
     title: {
       required,
       minLength: minLength(5)
     },
+
     description: {
       required,
       minLength: minLength(10)

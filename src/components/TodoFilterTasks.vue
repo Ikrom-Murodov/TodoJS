@@ -27,7 +27,7 @@
       >
         <button
           @click="completedTasks"
-          title="Выполненые задачи"
+          title="Выполненные задачи"
           class="todo-filter__button-performed"
         >
           <todo-svg-performed
@@ -45,7 +45,7 @@
       >
         <button
           @click="failedTasks"
-          title="Не выполненые задачи"
+          title="Не выполненные задачи"
           class="todo-filter__button-no-performed"
         >
           <todo-svg-not-performed
@@ -61,6 +61,7 @@
 import TodoSvgList from "./TodoSvgList";
 import TodoSvgPerformed from "./TodoSvgPerformed";
 import TodoSvgNotPerformed from "./TodoSvgNotPerformed";
+import { mapMutations } from "vuex";
 
 export default {
   components: {
@@ -69,19 +70,23 @@ export default {
     "todo-svg-not-performed": TodoSvgNotPerformed
   },
   methods: {
+    ...mapMutations("main", ["editMode"]),
+
     allTasks() {
-      this.$store.commit("editMode", "returnTasks");
+      this.editMode("returnTasks");
     },
+
     completedTasks() {
-      this.$store.commit("editMode", "returnCompletedTasks");
+      this.editMode("returnCompletedTasks");
     },
+
     failedTasks() {
-      this.$store.commit("editMode", "returnFailedTasks");
+      this.editMode("returnFailedTasks");
     }
   },
   computed: {
     classActive() {
-      return this.$store.state.mode;
+      return this.$store.state.main.mode;
     }
   }
 };

@@ -54,10 +54,13 @@
 
 <script>
 import TodoSvgTasksPerformed from "./TodoSvgTasksPerformed";
+import { mapMutations } from "vuex";
+
 export default {
   components: {
     "todo-svg-tasks-performed": TodoSvgTasksPerformed
   },
+
   data() {
     return {
       title: this.Data.title,
@@ -67,7 +70,10 @@ export default {
       show: true
     };
   },
+
   methods: {
+    ...mapMutations("main", ["removeTask", "changeTask"]),
+
     editTask() {
       this.show = !this.show;
       this.buttonTitle = this.show ? "Изменить задачу" : "Сохранить задачу";
@@ -76,7 +82,7 @@ export default {
     },
 
     deleteTasks() {
-      this.$store.commit("removeTask", this.Data.id);
+      this.removeTask(this.Data.id);
     },
 
     performTask() {
@@ -92,7 +98,7 @@ export default {
         id: this.Data.id
       };
 
-      this.$store.commit("changeTask", data);
+      this.changeTask(data);
     }
   },
   props: {
